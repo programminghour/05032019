@@ -1,0 +1,82 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int even(int tab[1000])
+{
+    int sum=0;
+
+    for(int i=0;i<1000;i++)
+        if(tab[i]%2==0)
+            sum++;
+
+    return sum;
+}
+
+int sum(int tab)
+{
+    int sum=0;
+    while(tab>0)
+    {
+        sum+=tab%10;
+        tab/=10;
+    }
+
+        return sum;
+}
+
+bool rising(int nr)
+{
+    while(nr>=10)
+    {
+        if(nr%10 <= (nr/10)%10)
+            return false;
+        nr/=10;
+
+    }
+
+    return true;
+
+}
+
+int main()
+{
+   ifstream data("cyfry.txt");
+   ofstream result("zadanie4.txt");
+   int suma=0, minim=INT_MAX, maxim=0;
+
+   result<<"c"<<endl;
+
+   for(int i=0;i<1000;i++)
+    {
+        int current;
+        data>>current;
+
+        for(int i=0;i<1000;i++)
+            if(current%2==0)
+                suma++;
+
+        if(sum(current)<sum(minim))
+            minim=current;
+        if(sum(current)>sum(maxim))
+            maxim=current;
+
+        if(rising(current))
+            result<<current<<endl;
+
+    }
+
+
+
+
+   result<<endl<<"a"<<endl<<sum<<endl<<endl;
+   result<<"b"<<endl<<"Najwieksza suma cyfr jest w liczbie "<<maxim<<endl<<"Najmniejsza suma cyfr jest w liczbie "<<minim<<endl<<endl;
+
+
+
+   data.close();
+   result.close();
+
+    return 0;
+}
